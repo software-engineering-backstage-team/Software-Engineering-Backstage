@@ -6,4 +6,8 @@
 
 asdads
 
-edc
+<<<<<<< HEAD
+asdasdfadfag
+=======
+asdasdfadfag
+>>>>>>> featurel
