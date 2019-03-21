@@ -1,5 +1,5 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from . import models
 
 # Create your views here.
 
@@ -16,4 +16,7 @@ def Register(request):
     return
 
 def Homepage(request):
+    return
+
+def Send_Emails(request):
     return

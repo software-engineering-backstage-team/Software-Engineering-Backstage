@@ -1,10 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}
+    主页
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+                <a href="#" class="list-group-item active">管理</a>
+                <a href="#" class="list-group-item">
+                    <img src="/media/web_img/subscribe.jpg" style="margin-right:15px; width:20px ">我的订阅</a>
+                <a href="#" class="list-group-item">
+                    <img src="/media/web_img/personal1.png" style="margin-right:15px; width:20px ">个人信息</a>
+                <a href="#" class="list-group-item">
+                    <img src="/media/web_img/change2.png" style="margin-right:15px; width:20px ">修改信息</a>
+
+                {% if request.session.grant <= '2' %}
+                    <a href="{% url 'add_paper' %}" class="list-group-item">
+                        <img src="/media/web_img/add_book1.png" style="margin-right:15px; width:20px ">添加报刊</a>
+                    <a href="{% url 'add_paper' %}" class="list-group-item">
+                        <img src="/media/web_img/book2.png" style="margin-right:15px; width:20px ">修改报刊</a>
+                    <a href="{% url 'search_paper' %}" class="list-group-item">
+                        <img src="/media/web_img/paper3.png" style="margin-right:15px; width:20px ">报刊订阅情况</a>
+                    <a href="{% url 'search_user' %}" class="list-group-item">
+                        <img src="/media/web_img/people.png" style="margin-right:15px; width:20px ">人员订阅情况</a>
+                    <a href="{% url 'search_department' %}" class="list-group-item">
+                        <img src="/media/web_img/department.png" style="margin-right:15px; width:20px ">部门订阅情况</a>
+                    <a href="{% url 'analyse' %}" class="list-group-item">
+                        <img src="/media/web_img/statistic.png" style="margin-right:15px; width:20px ">功绩统计</a>
+                    {% if request.session.grant == '1' %}
+                        <a href="{% url 'user_operate' %}" class="list-group-item">
+                            <img src="/media/web_img/delete_user.png" style="margin-right:15px; width:20px ">用户管理</a>
+                    {% endif %}
+
+                {% endif %}
+
+            </div>
+            <div class="col-sm-10">
+                {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
+                <ol class="breadcrumb">
+                    <li class="active">订阅管理
+                    </li>
+                    <li class="active">订阅列表
+                    </li>
+                </ol>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        搜索
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" class="form-inline" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ pap_form.papername.label_tag }}
+                                {{ pap_form.papername }}
+                            </div>
+                            <button type="submit" class="btn btn-default">开始搜索</button>
+
+                        </form>
+                    </div>
+                </div>
+
+                <!--
+                    列表展示
+                -->
+
+                <div class="table-responsive">
+                    <table class="table table-striped ">
+                        <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>图标</th>
+                            <th>名称</th>
+                            <th>出版社</th>
+                            <th>价格</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        {% for paper in papers %}
+                            <tr>
+                                <td style="vertical-align: middle">{{ forloop.counter }}</td>
+                                {% if paper.image %}
+                                    <td style="vertical-align: middle"><img src="{{ paper.image.url }}" width="200px" height="150px"></td>
+                                 {% else %}
+                                    <td style="vertical-align: middle"></td>
+                                {% endif %}
+
+
+
+                                <td style="vertical-align: middle">{{ paper.bookname }}</td>
+                                <td style="vertical-align: middle"> {{ paper.pressname }}</td>
+                                <td style="vertical-align: middle">{{ paper.price }}</td>
+                                <td style="vertical-align: middle">
+                                    <div class="btn-group">
+                                        <form action="" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-default"
+                                                    style="background-color: #3e8f3e;color:white" name="subscribe"
+                                                    value={{ paper.id }}>订阅
+                                            </button>
+
+                                            {% if request.session.grant <= '2' %}
+                                                <button type="submit" class="btn btn-default" name="change"
+                                                        value={{ paper.id }}>修改
+                                                </button>
+                                                <button type="submit" class="btn btn-danger" name="delete"
+                                                        value={{ paper.id }}>删除
+                                                </button>
+                                            {% endif %}
+
+                                        </form>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
