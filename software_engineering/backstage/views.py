@@ -18,6 +18,5 @@ def Register(request):
 def Homepage(request):
     return
 
-
-def test(request):
-    return "尹毓康添加的test函数"
+def change_view(request):
+    return
