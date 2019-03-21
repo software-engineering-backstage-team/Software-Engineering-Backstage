@@ -19,4 +19,5 @@ from django.conf import settings
 
 urlpatterns = [
                   path('', include('backstage.urls')),
+                  path('captcha/', include('captcha.urls')),  # 增加这一行
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

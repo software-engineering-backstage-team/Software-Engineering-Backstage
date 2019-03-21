@@ -9,22 +9,20 @@ class User(models.Model):
         ('male', '男'),
         ('female', '女'),
     )
-
-    name = models.CharField(max_length=128, unique=True)
+    codename = models.CharField(max_length=128, unique=True, default='2016')
+    nickname = models.CharField(max_length=128, unique=False)
     password = models.CharField(max_length=256)
     email = models.EmailField(unique=True, default="")
     department = models.ForeignKey("Dept", on_delete=models.CASCADE)
     grant = models.CharField(max_length=32, default='3')
     sex = models.CharField(max_length=32, choices=gender, default='男')
-    c_time = models.DateTimeField(auto_now_add=True)
+    start_year = models.CharField(max_length=32, default='2019')
+    end_year = models.CharField(max_length=32, default='2023')
 
     def __str__(self):
-        return self.name
+        return self.code
 
     class Meta:
-        ordering = ['c_time']
-        verbose_name = '用户'
-        verbose_name_plural = '用户'
         db_table = 'users'
 
 
