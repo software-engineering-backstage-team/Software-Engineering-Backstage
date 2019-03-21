@@ -17,3 +17,7 @@ def Register(request):
 
 def Homepage(request):
     return
+
+
+def test(request):
+    return "尹毓康"
