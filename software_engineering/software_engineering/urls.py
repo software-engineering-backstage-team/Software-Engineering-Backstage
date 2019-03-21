@@ -14,14 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path, include
-from backstage import views
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-                  path('', views.Welcome, name="Welcome"),
-                  path('Login/', views.Login, name='Login'),
-                  path('Log_out/', views.Log_out, name='Log_out'),
-                  path('Register/', views.Register, name='Register'),
-                  path('Homepage/', views.Homepage, name='Homepage'),
+                  path('', include('backstage.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
