@@ -20,4 +20,4 @@ def Homepage(request):
 
 
 def test(request):
-    return "尹毓康"
+    return "尹毓康添加的test函数"
