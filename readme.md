@@ -19,10 +19,5 @@
     7.  关于后端核心功能，请clone后查看相关注释及项目开发文档。
     8.  系统开发需大家通力配合，请大家积极学习相关知识，参与项目开发讨论。
             一些链接：
-                [django学习课程][1]
-                [git学习][2]
-                
-
-
-  [1]: https://ke.qq.com/course/308515
-  [2]: https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+                [django学习课程] https://ke.qq.com/course/308515
+                [git学习] https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000 
